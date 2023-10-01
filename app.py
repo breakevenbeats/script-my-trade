@@ -20,6 +20,9 @@ def process_input_data(input_data):
         results = []
         for row in tsv_reader:
             name, side, filled_time = row
+
+            if name == "Name":
+                continue
             mo, year, day, hh, mm, filled_time_str = parse_date_time(filled_time)
 
             if "Call" in name:

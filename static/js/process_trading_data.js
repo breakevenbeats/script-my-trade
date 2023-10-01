@@ -30,29 +30,29 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-  var copyButton = document.getElementById('copy-button');
-  var copyIcon = document.getElementById('copy-icon');
-  var copyText = document.getElementById('copy-text');
+    var copyButton = document.getElementById('copy-button');
+    var copyIcon = document.getElementById('copy-icon');
+    var copyText = document.getElementById('copy-text');
 
-  copyButton.addEventListener('click', function() {
-    var textToCopy = document.querySelector('.result-box ul').innerText;
-    var textArea = document.createElement("textarea");
-    textArea.value = textToCopy;
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textArea);
+    copyButton.addEventListener('click', function() {
+        var textToCopy = document.querySelector('.result-box ul').innerText;
+        var textArea = document.createElement("textarea");
+        textArea.value = textToCopy;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
 
-    // Change the icon and text
-    copyIcon.innerHTML = '&#x2713;'; // Unicode for checkmark
-    copyText.textContent = 'Copied';
+        // Change the icon and text
+        copyIcon.innerHTML = '&#x2713;'; // Unicode for checkmark
+        copyText.textContent = 'Copied';
 
-    // Revert back to original state after few seconds
-    setTimeout(function() {
-      copyIcon.innerHTML = '&#x1F4CB;'; // Unicode for clipboard icon
-      copyText.textContent = 'Copy';
-    }, 2000);
-  });
+        // Revert back to original state after few seconds
+        setTimeout(function() {
+            copyIcon.innerHTML = '&#x1F4CB;'; // Unicode for clipboard icon
+            copyText.textContent = 'Copy';
+        }, 2000);
+    });
 });
 
 
