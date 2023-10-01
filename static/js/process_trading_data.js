@@ -29,6 +29,33 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+  var copyButton = document.getElementById('copy-button');
+  var copyIcon = document.getElementById('copy-icon');
+  var copyText = document.getElementById('copy-text');
+
+  copyButton.addEventListener('click', function() {
+    var textToCopy = document.querySelector('.result-box ul').innerText;
+    var textArea = document.createElement("textarea");
+    textArea.value = textToCopy;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+
+    // Change the icon and text
+    copyIcon.innerHTML = '&#x2713;'; // Unicode for checkmark
+    copyText.textContent = 'Copied';
+
+    // Revert back to original state after few seconds
+    setTimeout(function() {
+      copyIcon.innerHTML = '&#x1F4CB;'; // Unicode for clipboard icon
+      copyText.textContent = 'Copy';
+    }, 2000);
+  });
+});
+
+
 function copyToClipboard() {
 	var textToCopy = document.querySelector('.result-box ul').innerText;
 	var textArea = document.createElement("textarea");
@@ -61,43 +88,59 @@ function handleResponse(response) {
 }
 
 function processInput() {
-    var date = document.getElementById('datePicker').value;
     var inputText = document.getElementById('tsvInput').value;
-
+    var date = document.getElementById('datePicker').value;
     if (!date || !inputText) {
         alert('Please select a date and enter text before submitting.');
         return;
     }
 
-    // Split the inputText by newline to get each row
-    var inputRows = inputText.split('\n');
-
-    var resultsList = document.getElementById('resultsList');
-    resultsList.innerHTML = ''; // Clear the previous results
-
-    inputRows.forEach(function(row) {
-        try {
-            var [action, type, time] = row.split(' ').map(e => e.toLowerCase());
-
-            if (['buy', 'sell'].indexOf(action) === -1 || ['call', 'put'].indexOf(type) === -1) {
-                alert(`Invalid action or type in row "${row}". Please enter "Buy" or "Sell" for action and "Call" or "Put" for type.`);
-                return;
+    var parsedDate = new Date(Date.parse(date));
+    var year = parsedDate.getFullYear();
+    var month = parsedDate.getMonth() + 1; // JavaScript months are 0-indexed.
+    var day = parsedDate.getDate();
+    
+    if (inputText) {
+        var lines = inputText.split('\n');
+        var results = [];
+        for (let line of lines) {
+            // Now, assuming each line is in the format: "<action> <type> <time>"
+            // Example: "Buy Put 15:43"
+            var parts = line.trim().split(' ');
+            if (parts.length !== 3) {
+                alert('Invalid input: ' + line);
+                continue;
             }
 
-            var [month, day, year] = date.split('/');
-            var [hour, minute] = time.split(':');
-
+            var action = parts[0].toLowerCase();
+            var type = parts[1].toLowerCase();
+            var time = parts[2]; // in HH:mm format
+            
+            // You need to further parse the time to extract hour and minute
+            var timeParts = time.split(':');
+            var hour = parseInt(timeParts[0]);
+            var minute = parseInt(timeParts[1]);
+            
+            // Determine the color based on action
             var color = action === 'buy' ? 'color.red' : 'color.green';
-            var result = `plotshape(time == timestamp(${year}, ${month}, ${day}, ${hour}, ${minute}), style=shape.triangleup, location=location.belowbar, color=${color}, size=size.small, text='${type.charAt(0).toUpperCase() + type.slice(1)}', textcolor=color.white)`;
-
+            
+            // Determine the text based on type
+            var text = type === 'call' ? 'Call' : 'Put';
+            
+            var result = `plotshape(time == timestamp(${year}, ${month}, ${day}, ${hour}, ${minute}), style=shape.triangleup, location=location.belowbar, color=${color}, size=size.small, text='${text}', textcolor=color.white)`;
+            results.push(result);
+        }
+        
+        var resultsList = document.getElementById('resultsList');
+        resultsList.innerHTML = '';
+        results.forEach(result => {
             var listItem = document.createElement('li');
             listItem.textContent = result;
             resultsList.appendChild(listItem);
-        } catch (error) {
-            console.error(error);
-            alert(`An error occurred while processing the row "${row}".`);
-        }
-    });
+        });
+    } else {
+        alert('Please select a date and enter text before submitting.');
+    }
 }
 
 function handleTabKey(event) {

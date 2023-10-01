@@ -97,16 +97,6 @@ header {
     width: 100%; /* Ensure the textarea takes up the full width */
 }
 
-.input-box button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 14px;
-    cursor: pointer;
-}
-
 .result-box {
     flex: 1;
     border: 1px solid #ccc;
@@ -135,10 +125,9 @@ header {
     margin-bottom: 5px;
 }
 
-/* Primary Button */
 .button-primary {
-    background-color: #007bff;
-    color: #fff;
+    background-color: #008B8B; /* Dark Cyan */
+    color: #fff; /* White Text */
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -147,22 +136,7 @@ header {
 }
 
 .button-primary:hover {
-    background-color: #0056b3;
-}
-
-/* Secondary Button */
-.button-secondary {
-    background-color: #ff6c7c;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.button-secondary:hover {
-    background-color: #ff4752;
+    background-color: #006666; /* Darker Cyan for hover effect */
 }
 
 /* Copy Button */
@@ -170,7 +144,7 @@ header {
     position: absolute;
     top: 10px;
     right: 10px;
-    background-color: #007bff;
+    background-color: #008B8B; /* Dark Cyan */
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -180,7 +154,11 @@ header {
 }
 
 .copy-button:hover {
-    background-color: #0056b3;
+    background-color: #006666; /* Darker Cyan for hover effect */
+}
+
+.icon {
+  margin-right: 5px;
 }
 
 /* Footer Styles */
