@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TSV File Upload and Processing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>TSV File Upload and Processing</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".tsv" required>
+        <button type="submit">Upload File</button>
+    </form>
+    
+    <div class="container">
+        <!-- Left input box for TSV content -->
+        <div class="input-box">
+            <h2>Input TSV Content</h2>
+            <textarea id="tsvInput" name="input_text" rows="10" cols="40" tabindex="1" onkeydown="handleTabKey(event)" placeholder="Call&nbsp;Buy&nbsp;09/29/2023&nbsp;09:54:06&nbsp;EDT"></textarea>
+            <br>
+            <button onclick="processInput()" tabindex="-1" contenteditable="false">Submit Text</button>
+        </div>
+
+        
+        <!-- Right result box -->
+        <div class="result-box">
+            <button class="copy-button" onclick="copyToClipboard()">Copy</button>
+            <h2>Processed Results</h2>
+            <ul id="resultsList">
+                <!-- Results will be displayed here -->
+                {% if results %}
+                    {% for result in results %}
+                        <li>{{ result }}</li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/process_trading_data.js') }}"></script>
+
+</body>
+</html>
+
