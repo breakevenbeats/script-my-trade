@@ -51,7 +51,7 @@ def process_text():
 def upload_file():
     file = request.files['file']
     if file:
-        return jsonify(results=process_input_data(file.read().decode('utf-8')))
+        return process_input_data(file.read().decode('utf-8'))
     else:
         return jsonify(results="No file provided")
 

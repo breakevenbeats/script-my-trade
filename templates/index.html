@@ -3,42 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TSV File Upload and Processing</title>
+    <title>Trade Plotting For TradingView</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.0/pikaday.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.0/css/pikaday.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 </head>
 <body>
-    <h1>TSV File Upload and Processing</h1>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".tsv" required>
-        <button type="submit">Upload File</button>
-    </form>
-    
-    <div class="container">
-        <!-- Left input box for TSV content -->
-        <div class="input-box">
-            <h2>Input TSV Content</h2>
-            <textarea id="tsvInput" name="input_text" rows="10" cols="40" tabindex="1" onkeydown="handleTabKey(event)" placeholder="Call&nbsp;Buy&nbsp;09/29/2023&nbsp;09:54:06&nbsp;EDT"></textarea>
-            <br>
-            <button onclick="processInput()" tabindex="-1" contenteditable="false">Submit Text</button>
-        </div>
+    <div class="content-container">
+        <h1>Input Trades as TSV</h1>
+        <form action="/upload" method="post" enctype="multipart/form-data" id="fileUploadForm">
+            <input type="file" name="file" accept=".tsv" required>
+            <button type="submit">Upload File</button>
+        </form>
 
-        
-        <!-- Right result box -->
-        <div class="result-box">
-            <button class="copy-button" onclick="copyToClipboard()">Copy</button>
-            <h2>Processed Results</h2>
-            <ul id="resultsList">
-                <!-- Results will be displayed here -->
-                {% if results %}
+        <div class="container">
+            <!-- Left input box for manual input -->
+            <div class="input-box">
+                <h2>Input Trades Manually</h2>
+                <input type="text" id="datePicker" placeholder="Select Date">
+                <textarea id="tsvInput" name="input_text" rows="10" cols="40" tabindex="1" onkeydown="handleTabKey(event)" placeholder="Call    Buy 9:54"></textarea>
+                <br>
+                <button onclick="processInput()" tabindex="-1" contenteditable="false">Submit</button>
+            </div>
+
+            <!-- Right result box -->
+            <div class="result-box">
+                <button class="copy-button" onclick="copyToClipboard()">Copy</button>
+                <h2>Pinescript</h2>
+                <ul id="resultsList">
+                    <!-- Results will be displayed here -->
+                    {% if results %}
                     {% for result in results %}
-                        <li>{{ result }}</li>
+                    <li>{{ result }}</li>
                     {% endfor %}
-                {% endif %}
-            </ul>
-        </div>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>    
     </div>
     <script src="{{ url_for('static', filename='js/process_trading_data.js') }}"></script>
-
 </body>
 </html>
 

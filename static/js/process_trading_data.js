@@ -1,3 +1,29 @@
+// Initialize Pikaday date picker
+var datePicker = new Pikaday({
+    field: document.getElementById('datePicker'),
+    format: 'MM/DD/YYYY',
+    yearRange: [2000, moment().year()],
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    var form = document.getElementById('fileUploadForm');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+
+        var formData = new FormData(form); // Create a FormData object from the form
+        fetch('/upload', {
+            method: 'POST',
+            body: formData // Use the FormData object as the request body
+        })
+        .then(response => response.text())
+        .then(data => {
+            // Update the results div with the response
+            document.querySelector('.result-box ul').innerHTML = data;
+        })
+        .catch(error => console.error(error));
+    });
+});
+
 function handleInput() {
 	var inputBox = document.getElementById('tsvInput');
 	var placeholder = "Call Buy    09/29/2023 09:54:06 EDT";

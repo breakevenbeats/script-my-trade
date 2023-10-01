@@ -1,16 +1,23 @@
 /* styles.css */
 
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
 /* Global Styles */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f8f8;
+    font-family: Nunito, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ensure full viewport height */
+    margin: 0; /* Remove default margin */
+    padding-top: 20px; /* Adjust the desired padding value */
+    background-color: #222; /* Dark background color */
+    color: #fff; /* Light text color */
 }
 
 h1 {
     font-size: 28px;
-    color: #333;
+    color: #444;
 }
 
 /* Header Styles */
@@ -27,6 +34,16 @@ header {
     justify-content: space-between;
     align-items: flex-start;
     padding: 20px;
+    background-color: #222;
+    color: #fff;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* This ensures the content fills the entire viewport height */
 }
 
 /* Left Input Box Styles */
@@ -36,8 +53,11 @@ header {
     border-radius: 10px;
     padding: 20px;
     margin-right: 20px;
-    background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-box::placeholder {
+    color: #fff; /* Set placeholder text color to white */
 }
 
 .input-box h2 {
@@ -46,12 +66,17 @@ header {
 }
 
 .input-box textarea {
+    background-color: #222;
+    color:#fff
     width: 100%;
     height: 150px;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
     font-size: 14px;
+    outline: none;
+    border: none; /* Set the border to none */
+    outline: none; /* Remove outline */
+    resize: none; /* Disable textarea resizing */
+    width: 100%; /* Ensure the textarea takes up the full width */
 }
 
 .input-box button {
@@ -70,7 +95,9 @@ header {
     border: 1px solid #ccc;
     border-radius: 10px;
     padding: 20px;
-    background-color: #fff;
+    background-color: #222;
+    color: #fff;
+    overflow-y: auto
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: relative;
 }
@@ -90,7 +117,37 @@ header {
     margin-bottom: 5px;
 }
 
-/* Copy Button Styles */
+/* Primary Button */
+.button-primary {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Secondary Button */
+.button-secondary {
+    background-color: #ff6c7c;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-secondary:hover {
+    background-color: #ff4752;
+}
+
+/* Copy Button */
 .copy-button {
     position: absolute;
     top: 10px;
@@ -100,8 +157,12 @@ header {
     border: none;
     border-radius: 5px;
     padding: 5px 10px;
-    font-size: 14px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.copy-button:hover {
+    background-color: #0056b3;
 }
 
 /* Footer Styles */
