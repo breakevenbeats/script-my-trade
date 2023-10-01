@@ -38,15 +38,6 @@ def process_input_data(input_data):
     except Exception as e:
         return [f"An error occurred: {e}"]
 
-@app.route('/process_text', methods=['POST'])
-def process_text():
-    input_text = request.form.get('input_text')
-    if input_text:
-        return jsonify(results=process_input_data(input_text))
-    else:
-        return jsonify(results="No text provided")
-
-
 @app.route('/upload', methods=['POST'])
 def upload_file():
     file = request.files['file']
