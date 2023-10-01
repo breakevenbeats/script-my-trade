@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="content-container">
-        <h1>Input Trades as TSV</h1>
+        <h2>Input Trades as TSV</h2>
         <form action="/upload" method="post" enctype="multipart/form-data" id="fileUploadForm">
             <input type="file" name="file" accept=".tsv" required>
             <button type="submit">Upload File</button>
@@ -21,8 +21,8 @@
             <!-- Left input box for manual input -->
             <div class="input-box">
                 <h2>Input Trades Manually</h2>
-                <input type="text" id="datePicker" placeholder="Select Date">
-                <textarea id="tsvInput" name="input_text" rows="10" cols="40" tabindex="1" onkeydown="handleTabKey(event)" placeholder="Call    Buy 9:54"></textarea>
+                <input type="text" id="datePicker" placeholder="Date of trades">
+                <textarea id="tsvInput" name="input_text" rows="4" cols="40" tabindex="1" onkeydown="handleTabKey(event)"></textarea>
                 <br>
                 <button onclick="processInput()" tabindex="-1" contenteditable="false">Submit</button>
             </div>
