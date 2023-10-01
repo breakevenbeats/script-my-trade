@@ -33,9 +33,9 @@ def process_input_data(input_data):
                 name = "Unknown"
 
             if side == "Buy":
-                result = f"plotshape(time == timestamp({year}, {mo}, {day}, {hh}, {mm}), style=shape.triangleup, location=location.belowbar, color=color.red, size=size.small, text='{name}', textcolor=color.white)"
+                result = f"plotshape(time == timestamp({year}, {mo}, {day}, {hh}, {mm}), style=shape.triangleup, location=location.belowbar, color=color.red, size=size.small, text='{name}', textcolor=color.white, display=display.all - display.status_line)"
             else:
-                result = f"plotshape(time == timestamp({year}, {mo}, {day}, {hh}, {mm}), style=shape.triangleup, location=location.belowbar, color=color.green, size=size.small, text='{name}', textcolor=color.white)"
+                result = f"plotshape(time == timestamp({year}, {mo}, {day}, {hh}, {mm}), style=shape.triangleup, location=location.belowbar, color=color.green, size=size.small, text='{name}', textcolor=color.white, display=display.all - display.status_line)"
             results.append(result)
         return results
     except Exception as e:

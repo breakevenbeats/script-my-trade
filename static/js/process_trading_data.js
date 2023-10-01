@@ -126,7 +126,7 @@ function processInput() {
             // Determine the text based on type
             var text = type === 'call' ? 'Call' : 'Put';
             
-            var result = `plotshape(time == timestamp(${year}, ${month}, ${day}, ${hour}, ${minute}), style=shape.triangleup, location=location.belowbar, color=${color}, size=size.small, text='${text}', textcolor=color.white)`;
+            var result = `plotshape(time == timestamp(${year}, ${month}, ${day}, ${hour}, ${minute}), style=shape.triangleup, location=location.belowbar, color=${color}, size=size.small, text='${text}', textcolor=color.white, display=display.all - display.status_line)`;
             results.push(result);
         }
         
