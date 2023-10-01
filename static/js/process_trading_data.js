@@ -64,7 +64,6 @@ function copyToClipboard() {
 	textArea.select();
 	document.execCommand('copy');
 	document.body.removeChild(textArea);
-	alert("Copied to clipboard!");
 }
 
 function handleResponse(response) {
