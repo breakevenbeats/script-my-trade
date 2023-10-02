@@ -20,6 +20,12 @@ h1 {
     color: #666;
 }
 
+.first-letter {
+    font-family: 'Passero One';
+    color: #4BB;
+    font-size: 1.6em;
+}
+
 /* Header Styles */
 header {
     background-color: #007bff;
