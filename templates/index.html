@@ -3,25 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trade Plotting For TradingView</title>
+    <title>Script My Trade</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.0/pikaday.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.0/css/pikaday.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <link rel="icon" href="{{ url_for('static', filename='assets/favicon.ico') }}" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/{{ url_for('static', filename='assets/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='assets/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='assets/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='assets/android-chrome-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='assets/android-chrome-512x512.png') }}">
+    <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
     <div class="content-container">
         <h1>Option Trades Plotter</h1>
-        <h3>Upload TSV</h3>
-        <form action="/upload" method="post" enctype="multipart/form-data" id="fileUploadForm">
-            <input type="file" name="file" accept=".tsv" required>
-            <button type="submit">Upload File</button>
-        </form>
-
         <div class="container">
             <!-- Left input box for manual input -->
             <div class="input-box">
-                <h2>Manual Input</h2>
+                <h2>Input Trades</h2>
                 <input type="text" id="datePicker" placeholder="Date of trades">
                 <textarea id="tsvInput" name="input_text" rows="4" cols="40" tabindex="1" onkeydown="handleTabKey(event)"></textarea>
                 <br>

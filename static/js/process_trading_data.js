@@ -1,32 +1,31 @@
-// Initialize Pikaday date picker
 var datePicker = new Pikaday({
     field: document.getElementById('datePicker'),
     format: 'MM/DD/YYYY',
     yearRange: [2000, moment().year()],
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-    var form = document.getElementById('fileUploadForm');
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
+var textarea = document.getElementById('tsvInput');
+var placeholderText = "Buy Call 9:30\nSell Call 9:45\nBuy Put 13:15\nSell Put 13:45";
 
-        var formData = new FormData(form);
-        fetch('/upload', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-        // Update the results div with the response
-        const ulElement = document.querySelector('.result-box ul');      ulElement.innerHTML = ''; // Clear the existing content if any
-        data.forEach(item => {
-            const liElement = document.createElement('li');
-            liElement.textContent = item;
-                ulElement.appendChild(liElement);
-            });
-        })
-        .catch(error => console.error('Error:', error));
-    });
+textarea.value = placeholderText;
+textarea.className = 'placeholderText';
+
+textarea.addEventListener('focus', function() {
+    // If the current value is the placeholder, clear it on focus
+    if (this.value === placeholderText) {
+        this.value = '';
+        this.className = '';
+        this.style.color = '#fff';
+    }
+});
+
+textarea.addEventListener('blur', function() {
+    // If the user didn't enter anything, put the placeholder back on blur
+    if (this.value === '') {
+        this.value = placeholderText;
+        this.className = 'placeholderText';
+        this.style.color = 'lightgray';
+    }
 });
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -54,7 +53,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }, 2000);
     });
 });
-
 
 function copyToClipboard() {
 	var textToCopy = document.querySelector('.result-box ul').innerText;
@@ -114,18 +112,12 @@ function processInput() {
             var action = parts[0].toLowerCase();
             var type = parts[1].toLowerCase();
             var time = parts[2]; // in HH:mm format
-            
-            // You need to further parse the time to extract hour and minute
             var timeParts = time.split(':');
             var hour = parseInt(timeParts[0]);
             var minute = parseInt(timeParts[1]);
-            
-            // Determine the color based on action
             var color = action === 'buy' ? 'color.red' : 'color.green';
-            
-            // Determine the text based on type
             var text = type === 'call' ? 'Call' : 'Put';
-            
+
             var result = `plotshape(time == timestamp(${year}, ${month}, ${day}, ${hour}, ${minute}), style=shape.triangleup, location=location.belowbar, color=${color}, size=size.small, text='${text}', textcolor=color.white, display=display.all - display.status_line)`;
             results.push(result);
         }
@@ -154,26 +146,3 @@ function handleTabKey(event) {
 	}
 }
 
-var textarea = document.getElementById('tsvInput');
-var placeholderText = "Buy Call 9:30\nSell Call 9:45\nBuy Put 13:15\nSell Put 13:45";
-
-textarea.value = placeholderText;
-textarea.className = 'placeholderText';
-
-textarea.addEventListener('focus', function() {
-    // If the current value is the placeholder, clear it on focus
-    if (this.value === placeholderText) {
-        this.value = '';
-        this.className = '';
-        this.style.color = '#fff';
-    }
-});
-
-textarea.addEventListener('blur', function() {
-    // If the user didn't enter anything, put the placeholder back on blur
-    if (this.value === '') {
-        this.value = placeholderText;
-        this.className = 'placeholderText';
-        this.style.color = 'lightgray';
-    }
-});
